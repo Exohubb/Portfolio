@@ -1,19 +1,19 @@
 'use client'
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, type Variants } from 'framer-motion'
 import { Settings, X, Sun, Moon, Eye, Contrast } from 'lucide-react'
 import { useTheme } from '@/lib/hooks/useTheme'
 import { cn } from '@/lib/utils/cn'
 import type { Theme, TextSize } from '@/components/providers/ThemeProvider'
 
 /* ── Animation variants ───────────────────────────────────── */
-const overlayVariants = {
+const overlayVariants: Variants = {
   hidden:  { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.2 } },
   exit:    { opacity: 0, transition: { duration: 0.18 } },
 }
 
-const panelVariants = {
+const panelVariants: Variants = {
   hidden: {
     opacity: 0,
     scale: 0.88,
@@ -25,23 +25,23 @@ const panelVariants = {
     scale: 1,
     y: 0,
     transformOrigin: 'bottom right',
-    transition: { type: 'spring', stiffness: 380, damping: 30, mass: 0.8 },
+    transition: { type: 'spring' as const, stiffness: 380, damping: 30, mass: 0.8 },
   },
   exit: {
     opacity: 0,
     scale: 0.88,
     y: 12,
     transformOrigin: 'bottom right',
-    transition: { duration: 0.18, ease: 'easeIn' },
+    transition: { duration: 0.18, ease: 'easeIn' as const },
   },
 }
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden:  { opacity: 0, x: 10 },
   visible: (i: number) => ({
     opacity: 1,
     x: 0,
-    transition: { delay: i * 0.05, duration: 0.25, ease: 'easeOut' },
+    transition: { delay: i * 0.05, duration: 0.25, ease: 'easeOut' as const },
   }),
 }
 
@@ -70,7 +70,6 @@ export function SettingsPanel() {
     highContrast, setHighContrast,
   } = useTheme()
 
-  /* Close on outside click — only while open, properly cleaned up */
   const handleOutsideClick = useCallback((e: MouseEvent) => {
     const target = e.target as Node
     if (
@@ -83,7 +82,6 @@ export function SettingsPanel() {
 
   useEffect(() => {
     if (open) {
-      // small delay so the click that opened it doesn't immediately close it
       const id = setTimeout(() => {
         document.addEventListener('mousedown', handleOutsideClick)
       }, 50)
@@ -96,7 +94,6 @@ export function SettingsPanel() {
     }
   }, [open, handleOutsideClick])
 
-  /* Close on Escape */
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
     document.addEventListener('keydown', onKey)
@@ -107,7 +104,6 @@ export function SettingsPanel() {
 
   return (
     <>
-      {/* ── Invisible backdrop that closes panel on tap (mobile) ── */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -123,10 +119,8 @@ export function SettingsPanel() {
         )}
       </AnimatePresence>
 
-      {/* ── Wrapper sits above backdrop ── */}
       <div className="fixed bottom-10 right-6 sm:bottom-6 sm:right-6 z-[60]">
 
-        {/* Toggle button */}
         <motion.button
           ref={triggerRef}
           onClick={toggle}
@@ -146,7 +140,7 @@ export function SettingsPanel() {
         >
           <motion.span
             animate={{ rotate: open ? 135 : 0 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+            transition={{ type: 'spring' as const, stiffness: 400, damping: 25 }}
             className="flex items-center justify-center"
           >
             {open
@@ -156,7 +150,6 @@ export function SettingsPanel() {
           </motion.span>
         </motion.button>
 
-        {/* ── Panel ── */}
         <AnimatePresence mode="wait">
           {open && (
             <motion.div
@@ -177,12 +170,10 @@ export function SettingsPanel() {
                 'bg-[var(--color-surface)] overflow-hidden',
               )}
             >
-              {/* Top accent strip */}
               <div className="h-0.5 w-full bg-gradient-to-r from-accent via-accent-2 to-transparent" />
 
               <div className="p-4 sm:p-5">
 
-                {/* Header */}
                 <motion.div
                   custom={0}
                   variants={itemVariants}
@@ -226,7 +217,6 @@ export function SettingsPanel() {
                           <div className="text-sm font-medium leading-none">{label}</div>
                           <div className="text-xs opacity-55 mt-0.5">{desc}</div>
                         </div>
-                        {/* Active indicator */}
                         <AnimatePresence>
                           {theme === id && (
                             <motion.div
@@ -235,7 +225,7 @@ export function SettingsPanel() {
                               initial={{ scale: 0 }}
                               animate={{ scale: 1 }}
                               exit={{ scale: 0 }}
-                              transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                              transition={{ type: 'spring' as const, stiffness: 500, damping: 30 }}
                             />
                           )}
                         </AnimatePresence>
@@ -296,7 +286,6 @@ export function SettingsPanel() {
                       </div>
                     </div>
 
-                    {/* Toggle switch */}
                     <button
                       role="switch"
                       aria-checked={highContrast}
@@ -310,14 +299,13 @@ export function SettingsPanel() {
                     >
                       <motion.div
                         animate={{ x: highContrast ? 20 : 2 }}
-                        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                        transition={{ type: 'spring' as const, stiffness: 500, damping: 30 }}
                         className="absolute top-1 w-4 h-4 rounded-full bg-white shadow-md"
                       />
                     </button>
                   </div>
                 </motion.div>
 
-                {/* Footer */}
                 <motion.p
                   custom={4}
                   variants={itemVariants}

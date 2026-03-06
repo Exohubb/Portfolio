@@ -1,13 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter, Space_Grotesk } from 'next/font/google'
-import { ThemeProvider } from '@/components/providers/ThemeProvider'
-import { LenisProvider } from '@/components/providers/LenisProvider'
-import { Navbar } from '@/components/layout/Navbar'
-import { SettingsPanel } from '@/components/layout/SettingsPanel'
-import { LoadingScreen } from '@/components/organisms/LoadingScreen'
+import { Providers } from '@/components/providers/Providers'
 import './globals.css'
 
-// ✅ FIXED — removed axes:['wght']
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
@@ -66,20 +61,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="theme-color" content="#00D4FF" />
       </head>
-      <body className={`${inter.variable} ${spaceGrotesk.variable} font-inter bg-primary text-text-primary`}>
-        <ThemeProvider>
-          <LenisProvider>
-            <LoadingScreen />
-            <a href="#main-content" className="skip-link">Skip to main content</a>
-            <Navbar />
-            <main id="main-content">{children}</main>
-            <SettingsPanel />
-          </LenisProvider>
-        </ThemeProvider>
+      <body
+        className={`${inter.variable} ${spaceGrotesk.variable} font-inter bg-primary text-text-primary`}
+      >
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

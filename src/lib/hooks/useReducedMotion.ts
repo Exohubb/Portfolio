@@ -1,16 +1,14 @@
-import { useEffect, useState } from 'react'
+﻿'use client'
+import { useState, useEffect } from 'react'
 
 export function useReducedMotion(): boolean {
-  const [reducedMotion, setReducedMotion] = useState(false)
-
+  const [reduced, setReduced] = useState(false)
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setReducedMotion(mediaQuery.matches)
-
-    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches)
-    mediaQuery.addEventListener('change', handler)
-    return () => mediaQuery.removeEventListener('change', handler)
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setReduced(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setReduced(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
   }, [])
-
-  return reducedMotion
+  return reduced
 }
