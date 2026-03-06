@@ -341,31 +341,37 @@ function CityMarkers() {
 }
 
 /* ─── Arc line (breathing opacity) ─────────────────────────── */
+// ✅ REPLACE with this — uses primitive to avoid SVG type conflict
 function ArcLine({
   from, to, offset,
 }: { from: typeof CITIES[0]; to: typeof CITIES[0]; offset: number }) {
-  const ref  = useRef<THREE.Line>(null!)
-  const tRef = useRef(offset)
-  const pts  = useMemo(() => makeArc(from, to, 0.55), [from, to])
-  const geom = useMemo(() => {
-    const g = new THREE.BufferGeometry()
-    g.setFromPoints(pts)
-    return g
-  }, [pts])
+  const lineRef = useRef<THREE.Line>(null!)
+  const tRef    = useRef(offset)
+
+  const object = useMemo(() => {
+    const pts  = makeArc(from, to, 0.55)
+    const geom = new THREE.BufferGeometry().setFromPoints(pts)
+    const mat  = new THREE.LineBasicMaterial({
+      color:       '#00D4FF',
+      transparent: true,
+      opacity:     0.18,
+    })
+    const line = new THREE.Line(geom, mat)
+    lineRef.current = line
+    return line
+  }, [from, to])
 
   useFrame((_, delta) => {
     tRef.current += delta * 0.6
-    const o = 0.14 + Math.sin(tRef.current) * 0.10
-    ;(ref.current?.material as THREE.LineBasicMaterial).opacity = o
+    if (object.material) {
+      (object.material as THREE.LineBasicMaterial).opacity =
+        0.14 + Math.sin(tRef.current) * 0.10
+    }
   })
 
-  // @ts-ignore — line is valid R3F JSX
-  return (
-    <line ref={ref} geometry={geom}>
-      <lineBasicMaterial color="#00D4FF" transparent opacity={0.18} linewidth={1} />
-    </line>
-  )
+  return <primitive object={object} />
 }
+
 
 /* ─── Packet with 2-dot trail ───────────────────────────────── */
 interface PacketProps {
