@@ -494,7 +494,6 @@ function EarthScene() {
           luminanceThreshold={0.05}
           luminanceSmoothing={0.85}
           intensity={1.4}
-          // @ts-ignore — mipmapBlur exists in postprocessing v6+
           mipmapBlur
         />
       </EffectComposer>
@@ -503,7 +502,7 @@ function EarthScene() {
 }
 
 /* ─── Export ────────────────────────────────────────────────── */
-export default function EarthGlobe() {
+export function EarthGlobe() {
   return (
     <div
       style={{ width: '100%', height: '100%', overflow: 'hidden' }}
