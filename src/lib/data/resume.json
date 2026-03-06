@@ -1,0 +1,204 @@
+{
+  "meta": {
+    "name": "Kapil Meena",
+    "title": "Full-Stack Developer & Cybersecurity Engineer",
+    "tagline": "Building at the intersection of performance and security",
+    "email": "Kapilmeena30062003@gmail.com",
+    "phone": "+91 8000370497",
+    "location": "Bhopal, India",
+    "linkedin": "https://www.linkedin.com/in/kapil-meena-608239289",
+    "github": "https://github.com/Exohubb",
+    "codolio": "https://codolio.com/profile/bIZMQmM",
+    "open_to_work": true,
+    "resume_url": "/resume/kapil-final-resume.pdf"
+  },
+  "education": [
+    {
+      "institution": "Indian Institute of Information Technology, Bhopal",
+      "degree": "Bachelor of Technology in Information Technology",
+      "duration": "2023 – 2027",
+      "cgpa": null
+    }
+  ],
+  "experience": [
+    {
+      "role": "Web Security Lead",
+      "organization": "Xploit Club, IIIT Bhopal",
+      "type": "Extracurricular / Leadership",
+      "duration": "Aug 2025 – Present",
+      "achievements": [
+        "Leading web security initiatives and mentoring students in penetration testing and OWASP Top 10 vulnerabilities.",
+        "Conducting hands-on workshops on Web Exploitation, Bug Bounty, and Secure Coding Practices.",
+        "Organizing CTF challenges and real-world vulnerability assessment sessions.",
+        "Reviewing web applications for security flaws and guiding remediation strategies."
+      ]
+    }
+  ],
+  "projects": [
+
+    {
+      "id": "sitepulse",
+      "title": "SitePulse",
+      "subtitle": "Full-Stack Website Uptime Monitoring & Failure Analysis Platform",
+      "category": ["Full-Stack", "DevOps", "Real-Time"],
+      "duration": "Mar 2026",
+      "highlight": true,
+      "description": "Production-grade uptime monitoring platform that performs automated HTTP health checks across multiple targets with DNS resolution, SSL certificate expiry tracking, and intelligent failure classification. Features a real-time dashboard with 30-day uptime history bars, per-website incident lifecycle management, and response time analytics. Deployed serverlessly on Vercel with Neon PostgreSQL — zero cold starts, no infrastructure management. Automated check scheduling via external cron triggers with retry-based false-positive prevention (3-attempt exponential backoff before declaring downtime).",
+      "metrics": [
+        "Real-time monitoring every 60s",
+        "DNS + SSL + HTTP analysis",
+        "30-day uptime history",
+        "Zero cold starts"
+      ],
+      "stack": [
+        "React 18",
+        "Vite",
+        "TailwindCSS",
+        "Recharts",
+        "React Router v6",
+        "FastAPI",
+        "Python 3.11",
+        "SQLAlchemy ORM",
+        "Neon PostgreSQL",
+        "Vercel Serverless",
+        "cron-job.org",
+        "REST API"
+      ],
+      "live_url": "https://site-pulse-gy1f.vercel.app",
+      "github_url": "https://github.com/Exohubb/SitePulse",
+      "screenshot_placeholder": "/assets/placeholders/uptimesentry-screenshot.png"
+    },
+
+    {
+      "id": "rangrade",
+      "title": "RangRage",
+      "subtitle": "College Paintball Championship Platform",
+      "category": ["Full-Stack", "Real-Time", "E-Commerce"],
+      "duration": "Feb 2026",
+      "highlight": true,
+      "description": "Full-stack event booking platform handling 300+ team registrations with zero downtime under high concurrent traffic. Real-time slot booking using Supabase Realtime — 42 slots filled within 30 seconds with zero double-bookings.",
+      "metrics": ["300+ Registrations", "42 slots in 30s", "<1.2s Load", "0 downtime"],
+      "stack": ["Next.js 14", "TypeScript", "Supabase", "Redis Pub/Sub", "JWT Auth", "Google reCAPTCHA v2", "Tailwind CSS", "Framer Motion", "Vercel"],
+      "live_url": "https://rangrade.vercel.app",
+      "github_url": "https://github.com/kapilmeena/rangrade",
+      "screenshot_placeholder": "/assets/placeholders/rangrade-screenshot.png"
+    },
+    {
+      "id": "musicsync",
+      "title": "MusicSync",
+      "subtitle": "Distributed Synchronized Playback System",
+      "category": ["Real-Time", "Full-Stack"],
+      "duration": "Jan – Feb 2026",
+      "highlight": true,
+      "description": "Distributed music-sync system where all clients pre-load full audio into RAM and play in perfect, frame-accurate sync. Implements NTP-style global clock synchronization with adaptive playback-rate correction (±1–3%) via Web Audio API.",
+      "metrics": ["Frame-accurate sync", "NTP-style clock", "±1-3% drift correction"],
+      "stack": ["Node.js", "WebSocket (ws)", "WebRTC DataChannels", "Web Audio API", "Redis Pub/Sub", "Supabase", "HTML5", "JavaScript"],
+      "live_url": "https://auto-sync-music.onrender.com",
+      "github_url": "https://github.com/kapilmeena/musicsync",
+      "screenshot_placeholder": "/assets/placeholders/musicsync-screenshot.png"
+    },
+    {
+      "id": "prepways",
+      "title": "PrepWays",
+      "subtitle": "Mentorship & Exam Preparation Platform",
+      "category": ["EdTech", "Full-Stack"],
+      "duration": "Nov 2025 – Jan 2026",
+      "highlight": false,
+      "description": "Mentorship and exam prep platform for NEET/JEE aspirants. Features secure login with personalized dashboards, Cashfree payment gateway integration, and automated email notifications for order confirmations.",
+      "metrics": ["Fully Responsive", "Cashfree Payments", "Auto Email Notifications"],
+      "stack": ["HTML5", "CSS3", "JavaScript", "WordPress", "Elementor", "Cashfree Gateway", "Email Automation"],
+      "live_url": "https://prepways.in",
+      "github_url": null,
+      "screenshot_placeholder": "/assets/placeholders/prepways-screenshot.png"
+    },
+    {
+      "id": "shreeprasad",
+      "title": "ShreePrasad",
+      "subtitle": "Temple Prasad Booking Platform",
+      "category": ["E-Commerce", "Full-Stack"],
+      "duration": "Feb – Apr 2025",
+      "highlight": false,
+      "description": "Customized WooCommerce temple prasad booking platform with automated promotional workflows, email notifications, and full SEO optimization. Mobile-responsive and production-ready.",
+      "metrics": ["SEO Optimized", "Mobile Ready", "Auto Workflows"],
+      "stack": ["WordPress", "Elementor", "WooCommerce", "SEO", "Email Automation", "Plugins"],
+      "live_url": "https://shreeprasad.in",
+      "github_url": null,
+      "screenshot_placeholder": "/assets/placeholders/shreeprasad-screenshot.png"
+    },
+    {
+      "id": "pralay",
+      "title": "Pralay Sentinels",
+      "subtitle": "Early Glacier Outburst Detection System",
+      "category": ["Hackathon", "AI/ML", "Full-Stack"],
+      "duration": "Sep – Oct 2024",
+      "highlight": true,
+      "description": "Real-time web app to monitor glacier conditions and assess outburst risks. Built for Smart India Hackathon 2024 — features AI-based predictive models, OpenAI anomaly detection, and live sensor dashboards.",
+      "metrics": ["SIH 2024", "AI-Powered", "Real-time IoT"],
+      "stack": ["Next.js", "React", "Tailwind CSS", "Python", "TensorFlow", "OpenAI API", "Firebase", "Google Cloud", "IoT"],
+      "live_url": null,
+      "github_url": "https://github.com/kapilmeena/pralay-sentinels",
+      "screenshot_placeholder": "/assets/placeholders/pralay-screenshot.png"
+    }
+  ],
+  "certifications": [
+   {
+      "title": "Certified Network Security Practitioner (CNSP)",
+      "issuer": "PentestingExams / The SecOps Group",
+      "year": "2026",
+      "description": "Certification focused on network security fundamentals, penetration testing concepts, vulnerability assessment, and defensive security practices. Demonstrates practical understanding of securing network infrastructure and identifying security weaknesses.",
+      "certificate_id": "11171845",
+      "verify_url": "https://candidate.speedexam.net/certificate.aspx?SSTATE=am4131EniU8ntjp4bO5mXd1A1LyPUQUvjqNXGhdLXmn6dCrlONLBkCB9XIKq11DZa3DPizmGb/02MVO3d2vYV5b5gVz4sVIhIUDvbSbUiuk="
+    },
+    {
+      "title": "Java Masterclass 2025: 130+ Hours of Expert Lessons",
+      "issuer": "Udemy",
+      "year": "2025",
+      "description": "Comprehensive Java programming course covering core Java, object-oriented programming, data structures, multithreading, collections, and real-world application development with over 130 hours of hands-on lessons.",
+      "certificate_id": "UC-188b53c3-fa28-4957-878b-cbd103ace7f7",
+      "verify_url": "https://ude.my/UC-188b53c3-fa28-4957-878b-cbd103ace7f7"
+    },
+    {
+      "title": "Master the Coding Interview: Data Structures + Algorithms",
+      "issuer": "Udemy",
+      "year": "2025",
+      "description": "Focused on mastering data structures and algorithms for coding interviews, including arrays, trees, graphs, dynamic programming, recursion, and problem-solving strategies used in top tech companies.",
+      "certificate_id": "UC-a42da511-e3bd-46f3-99ef-ed4b02223bf8",
+      "verify_url": "https://ude.my/UC-a42da511-e3bd-46f3-99ef-ed4b02223bf8"
+    },
+    {
+      "title": "Learn Ethical Hacking From Scratch",
+      "issuer": "Udemy",
+      "year": "2024",
+      "description": "Covering penetration testing, network security, vulnerability assessment, and ethical hacking techniques. Gained hands-on experience in cybersecurity tools and real-world attack simulations.",
+      "certificate_id": "UC-e3adc032-b84b-40fa-a8a1-ddee3e054066",
+      "verify_url": "https://www.udemy.com/certificate/UC-e3adc032-b84b-40fa-a8a1-ddee3e054066/"
+    },
+    {
+      "title": "Google Foundations of Cybersecurity",
+      "issuer": "Google / Coursera",
+      "year": "2024",
+      "description": "Cybersecurity principles, network security, risk management, and threat detection. Industry best practices and foundational skills essential for cybersecurity roles.",
+      "certificate_id": "3N6TZFNBQLF8",
+      "verify_url": "https://www.coursera.org/account/accomplishments/verify/3N6TZFNBQLF8"
+    }
+  ],
+  "skills": {
+    "languages": ["C", "C++", "Python", "JavaScript", "TypeScript", "Bash"],
+    "frontend": ["React.js", "Next.js", "HTML5", "CSS3", "Tailwind CSS", "Bootstrap", "Framer Motion"],
+    "backend": ["Node.js", "Express.js", "REST APIs"],
+    "realtime": ["WebRTC", "Socket.IO", "WebSockets", "Redis Pub/Sub", "Web Audio API"],
+    "security": ["Penetration Testing", "OWASP Top 10", "Network Security", "Ethical Hacking", "Vulnerability Assessment", "Reverse Engineering"],
+    "databases": ["MongoDB", "PostgreSQL", "Supabase", "SQL", "Firebase"],
+    "cloud": ["AWS", "Azure", "GCP", "Vercel", "Render", "Cloudinary"],
+    "tools": ["Git", "Postman", "Docker", "Kali Linux", "Arch Linux"],
+    "platforms": ["Windows", "Linux (Arch, Kali, Ubuntu)", "macOS"],
+    "soft": [
+      "Problem Solving",
+      "Team Collaboration",
+      "Agile Methodologies",
+      "Leadership",
+      "Communication",
+      "Technical Writing"
+    ]
+  }
+}
