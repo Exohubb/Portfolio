@@ -23,7 +23,7 @@ const CITIES = [
   { lat: 40.7,  lng: -74.0,  name: 'New York'      },
   { lat: 51.5,  lng: -0.1,   name: 'London'        },
   { lat: 35.7,  lng: 139.7,  name: 'Tokyo'         },
-  { lat: 23.3,  lng: 77.4,   name: 'Bhopal'        },  // ← home
+  { lat: 23.3,  lng: 77.4,   name: 'Bhopal'        },
   { lat: 19.1,  lng: 72.9,   name: 'Mumbai'        },
   { lat: -33.9, lng: 151.2,  name: 'Sydney'        },
   { lat: 1.3,   lng: 103.8,  name: 'Singapore'     },
@@ -57,7 +57,7 @@ const CONNECTIONS = [
   [3,0],[3,1],[3,2],[3,7],[3,4],
   [1,0],[1,9],[2,5],[0,12],
   [7,5],[6,5],[11,1],[4,7],[10,2],
-].map(([a, b]) => ({ from: CITIES[a], to: CITIES[b] }))
+].map(([a, b]) => ({ from: CITIES[a!], to: CITIES[b!] }))
 
 /* ─── Canvas texture ────────────────────────────────────────── */
 function createEarthTexture(): THREE.CanvasTexture {
@@ -66,7 +66,6 @@ function createEarthTexture(): THREE.CanvasTexture {
   cvs.width = W; cvs.height = H
   const ctx = cvs.getContext('2d')!
 
-  /* Ocean */
   const ocean = ctx.createLinearGradient(0, 0, 0, H)
   ocean.addColorStop(0,   '#010810')
   ocean.addColorStop(0.5, '#020c1a')
@@ -74,7 +73,6 @@ function createEarthTexture(): THREE.CanvasTexture {
   ctx.fillStyle = ocean
   ctx.fillRect(0, 0, W, H)
 
-  /* Subtle depth noise on ocean */
   ctx.globalAlpha = 0.04
   for (let i = 0; i < 600; i++) {
     const x = Math.random() * W, y = Math.random() * H
@@ -109,31 +107,21 @@ function createEarthTexture(): THREE.CanvasTexture {
     ctx.closePath(); ctx.fill(); ctx.stroke()
   }
 
-  const LAND_FILL   = 'rgba(0,160,220,0.11)'
-  const LAND_LINE   = 'rgba(0,212,255,0.55)'
-  const INDIA_FILL  = 'rgba(255,179,71,0.10)'
-  const INDIA_LINE  = 'rgba(255,179,71,0.75)'
+  const LAND_FILL  = 'rgba(0,160,220,0.11)'
+  const LAND_LINE  = 'rgba(0,212,255,0.55)'
+  const INDIA_FILL = 'rgba(255,179,71,0.10)'
+  const INDIA_LINE = 'rgba(255,179,71,0.75)'
 
-  // North America
   drawContinent([[-168,72],[-130,60],[-127,54],[-124,49],[-118,33],[-88,16],[-85,9],[-77,8],[-75,12],[-68,44],[-52,47],[-56,53],[-64,61],[-83,64],[-104,70],[-141,70],[-168,72]], LAND_FILL, LAND_LINE)
-  // Greenland
   drawContinent([[-73,76],[-18,76],[-20,60],[-48,60],[-73,76]], LAND_FILL, LAND_LINE)
-  // South America
   drawContinent([[-80,12],[-62,11],[-52,4],[-36,-8],[-50,-28],[-52,-33],[-64,-42],[-68,-54],[-72,-50],[-80,-34],[-80,12]], LAND_FILL, LAND_LINE)
-  // Europe
   drawContinent([[-12,36],[28,36],[36,37],[28,41],[40,48],[30,60],[22,65],[15,68],[5,62],[0,58],[-5,48],[-12,36]], LAND_FILL, LAND_LINE)
-  // Africa
   drawContinent([[-18,37],[37,37],[52,12],[52,2],[42,-10],[36,-25],[18,-35],[-18,-37],[-18,37]], LAND_FILL, LAND_LINE)
-  // Asia (main — excluding India)
   drawContinent([[26,72],[145,72],[145,50],[140,45],[130,35],[130,6],[120,2],[88,28],[78,38],[68,36],[65,12],[26,12],[26,72]], LAND_FILL, LAND_LINE)
-  // ✅ India — highlighted in gold
   drawContinent([[68,36],[88,28],[82,8],[72,8],[68,12],[68,36]], INDIA_FILL, INDIA_LINE, 2.5)
-  // Southeast Asia
   drawContinent([[95,20],[110,20],[120,2],[95,2],[95,20]], LAND_FILL, LAND_LINE)
-  // Australia
   drawContinent([[114,-22],[154,-22],[154,-38],[132,-40],[116,-38],[114,-22]], LAND_FILL, LAND_LINE)
 
-  /* Bhopal glow dot */
   const [bx, by] = p(77.4, 23.3)
   const bg = ctx.createRadialGradient(bx, by, 0, bx, by, 28)
   bg.addColorStop(0,   'rgba(255,179,71,0.6)')
@@ -142,7 +130,6 @@ function createEarthTexture(): THREE.CanvasTexture {
   ctx.fillStyle = bg
   ctx.beginPath(); ctx.arc(bx, by, 28, 0, Math.PI * 2); ctx.fill()
 
-  /* Lat / lng grid */
   ctx.strokeStyle = 'rgba(0,212,255,0.05)'
   ctx.lineWidth   = 0.6
   for (let lat = -80; lat <= 80; lat += 20) {
@@ -182,40 +169,22 @@ function Stars() {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
-      <pointsMaterial
-        size={0.055}
-        color="#b0ccff"
-        transparent
-        opacity={0.75}
-        sizeAttenuation
-      />
+      <pointsMaterial size={0.055} color="#b0ccff" transparent opacity={0.75} sizeAttenuation />
     </points>
   )
 }
 
-/* ─── Dual atmosphere shells ────────────────────────────────── */
+/* ─── Atmosphere ────────────────────────────────────────────── */
 function Atmosphere() {
   return (
     <>
-      {/* Inner blue glow */}
       <mesh>
         <sphereGeometry args={[RADIUS + 0.10, 64, 64]} />
-        <meshPhongMaterial
-          color="#0077ff"
-          transparent opacity={0.07}
-          side={THREE.BackSide}
-          depthWrite={false}
-        />
+        <meshPhongMaterial color="#0077ff" transparent opacity={0.07} side={THREE.BackSide} depthWrite={false} />
       </mesh>
-      {/* Outer haze */}
       <mesh>
         <sphereGeometry args={[RADIUS + 0.38, 64, 64]} />
-        <meshPhongMaterial
-          color="#00D4FF"
-          transparent opacity={0.03}
-          side={THREE.BackSide}
-          depthWrite={false}
-        />
+        <meshPhongMaterial color="#00D4FF" transparent opacity={0.03} side={THREE.BackSide} depthWrite={false} />
       </mesh>
     </>
   )
@@ -225,12 +194,10 @@ function Atmosphere() {
 function OrbitRings() {
   return (
     <>
-      {/* Equatorial ring */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[RADIUS + 0.58, 0.004, 8, 128]} />
         <meshBasicMaterial color="#00D4FF" transparent opacity={0.18} />
       </mesh>
-      {/* Tilted ring */}
       <mesh rotation={[Math.PI / 3.5, 0.4, 0.2]}>
         <torusGeometry args={[RADIUS + 0.72, 0.003, 8, 128]} />
         <meshBasicMaterial color="#7B5EA7" transparent opacity={0.13} />
@@ -241,12 +208,12 @@ function OrbitRings() {
 
 /* ─── Satellite ─────────────────────────────────────────────── */
 function Satellite() {
-  const dotRef    = useRef<THREE.Mesh>(null!)
-  const trail1    = useRef<THREE.Mesh>(null!)
-  const trail2    = useRef<THREE.Mesh>(null!)
-  const tRef      = useRef(0)
-  const orbitR    = RADIUS + 0.58
-  const TILT      = Math.PI / 4
+  const dotRef  = useRef<THREE.Mesh>(null!)
+  const trail1  = useRef<THREE.Mesh>(null!)
+  const trail2  = useRef<THREE.Mesh>(null!)
+  const tRef    = useRef(0)
+  const orbitR  = RADIUS + 0.58
+  const TILT    = Math.PI / 4
 
   useFrame((_, delta) => {
     tRef.current += delta * 0.38
@@ -279,26 +246,22 @@ function Satellite() {
   )
 }
 
-/* ─── City marker with dual pulse rings ─────────────────────── */
-function CityMarker({
-  pos, isBhopal, offset,
-}: { pos: THREE.Vector3; isBhopal: boolean; offset: number }) {
-  const r1   = useRef<THREE.Mesh>(null!)
-  const r2   = useRef<THREE.Mesh>(null!)
-  const tRef = useRef(offset)
-  const color    = isBhopal ? '#FFB347' : '#00D4FF'
+/* ─── City marker ───────────────────────────────────────────── */
+function CityMarker({ pos, isBhopal, offset }: { pos: THREE.Vector3; isBhopal: boolean; offset: number }) {
+  const r1      = useRef<THREE.Mesh>(null!)
+  const r2      = useRef<THREE.Mesh>(null!)
+  const tRef    = useRef(offset)
+  const color   = isBhopal ? '#FFB347' : '#00D4FF'
   const baseSize = isBhopal ? 0.055 : 0.028
 
   useFrame((_, delta) => {
     tRef.current += delta * (isBhopal ? 1.0 : 1.3)
-    const t = tRef.current
-
-    const s1 = 1 + ((Math.sin(t) * 0.5 + 0.5)) * 1.0
+    const t  = tRef.current
+    const s1 = 1 + (Math.sin(t) * 0.5 + 0.5) * 1.0
     const o1 = Math.max(0, 1 - (s1 - 1)) * 0.6
     r1.current.scale.setScalar(s1)
     ;(r1.current.material as THREE.MeshBasicMaterial).opacity = o1
-
-    const s2 = 1 + ((Math.sin(t + Math.PI) * 0.5 + 0.5)) * 1.0
+    const s2 = 1 + (Math.sin(t + Math.PI) * 0.5 + 0.5) * 1.0
     const o2 = Math.max(0, 1 - (s2 - 1)) * 0.35
     r2.current.scale.setScalar(s2)
     ;(r2.current.material as THREE.MeshBasicMaterial).opacity = o2
@@ -306,17 +269,14 @@ function CityMarker({
 
   return (
     <group position={pos}>
-      {/* Core dot */}
       <mesh>
         <sphereGeometry args={[baseSize, 10, 10]} />
         <meshBasicMaterial color={color} />
       </mesh>
-      {/* Ring 1 */}
       <mesh ref={r1} rotation={[Math.PI / 2, 0, 0]}>
         <ringGeometry args={[baseSize * 1.6, baseSize * 2.4, 20]} />
         <meshBasicMaterial color={color} transparent opacity={0.55} side={THREE.DoubleSide} />
       </mesh>
-      {/* Ring 2 */}
       <mesh ref={r2} rotation={[Math.PI / 2, 0, 0]}>
         <ringGeometry args={[baseSize * 2.8, baseSize * 3.8, 20]} />
         <meshBasicMaterial color={color} transparent opacity={0.30} side={THREE.DoubleSide} />
@@ -340,22 +300,15 @@ function CityMarkers() {
   )
 }
 
-/* ─── Arc line (breathing opacity) ─────────────────────────── */
-// ✅ REPLACE with this — uses primitive to avoid SVG type conflict
-function ArcLine({
-  from, to, offset,
-}: { from: typeof CITIES[0]; to: typeof CITIES[0]; offset: number }) {
+/* ─── Arc line ──────────────────────────────────────────────── */
+function ArcLine({ from, to, offset }: { from: typeof CITIES[0]; to: typeof CITIES[0]; offset: number }) {
   const lineRef = useRef<THREE.Line>(null!)
   const tRef    = useRef(offset)
 
   const object = useMemo(() => {
     const pts  = makeArc(from, to, 0.55)
     const geom = new THREE.BufferGeometry().setFromPoints(pts)
-    const mat  = new THREE.LineBasicMaterial({
-      color:       '#00D4FF',
-      transparent: true,
-      opacity:     0.18,
-    })
+    const mat  = new THREE.LineBasicMaterial({ color: '#00D4FF', transparent: true, opacity: 0.18 })
     const line = new THREE.Line(geom, mat)
     lineRef.current = line
     return line
@@ -364,16 +317,14 @@ function ArcLine({
   useFrame((_, delta) => {
     tRef.current += delta * 0.6
     if (object.material) {
-      (object.material as THREE.LineBasicMaterial).opacity =
-        0.14 + Math.sin(tRef.current) * 0.10
+      (object.material as THREE.LineBasicMaterial).opacity = 0.14 + Math.sin(tRef.current) * 0.10
     }
   })
 
   return <primitive object={object} />
 }
 
-
-/* ─── Packet with 2-dot trail ───────────────────────────────── */
+/* ─── Packet ────────────────────────────────────────────────── */
 interface PacketProps {
   from:  typeof CITIES[0]
   to:    typeof CITIES[0]
@@ -383,12 +334,12 @@ interface PacketProps {
 }
 
 function Packet({ from, to, speed, delay, color }: PacketProps) {
-  const mainRef  = useRef<THREE.Mesh>(null!)
-  const trailA   = useRef<THREE.Mesh>(null!)
-  const trailB   = useRef<THREE.Mesh>(null!)
-  const tRef     = useRef(delay)
-  const arcPts   = useMemo(() => makeArc(from, to, 0.55), [from, to])
-  const curve    = useMemo(() => new THREE.CatmullRomCurve3(arcPts), [arcPts])
+  const mainRef = useRef<THREE.Mesh>(null!)
+  const trailA  = useRef<THREE.Mesh>(null!)
+  const trailB  = useRef<THREE.Mesh>(null!)
+  const tRef    = useRef(delay)
+  const arcPts  = useMemo(() => makeArc(from, to, 0.55), [from, to])
+  const curve   = useMemo(() => new THREE.CatmullRomCurve3(arcPts), [arcPts])
 
   useFrame((_, delta) => {
     tRef.current = (tRef.current + delta * speed) % 1
@@ -426,7 +377,6 @@ function EarthMesh({ texture }: { texture: THREE.CanvasTexture | null }) {
 
   return (
     <mesh ref={ref}>
-      {/* Higher poly for smoother silhouette */}
       <sphereGeometry args={[RADIUS, 80, 80]} />
       <meshPhongMaterial
         map={texture}
@@ -449,11 +399,10 @@ function EarthScene() {
 
   return (
     <>
-      {/* 3-point lighting — sun + rim + accent */}
       <ambientLight     intensity={0.22} />
-      <directionalLight position={[9, 5, 7]}   intensity={1.9}  color="#cce8ff" />
-      <pointLight       position={[-7,-4,-6]}   intensity={0.45} color="#7B5EA7" />
-      <pointLight       position={[0, 8, 2]}    intensity={0.3}  color="#00D4FF" />
+      <directionalLight position={[9, 5, 7]}  intensity={1.9}  color="#cce8ff" />
+      <pointLight       position={[-7,-4,-6]}  intensity={0.45} color="#7B5EA7" />
+      <pointLight       position={[0, 8, 2]}   intensity={0.3}  color="#00D4FF" />
 
       <Stars />
       <EarthMesh texture={texture} />
@@ -488,14 +437,8 @@ function EarthScene() {
         dampingFactor={0.05}
       />
 
-      {/* Stronger bloom — makes city dots and packets glow */}
       <EffectComposer>
-        <Bloom
-          luminanceThreshold={0.05}
-          luminanceSmoothing={0.85}
-          intensity={1.4}
-          mipmapBlur
-        />
+        <Bloom luminanceThreshold={0.05} luminanceSmoothing={0.85} intensity={1.4} mipmapBlur />
       </EffectComposer>
     </>
   )
@@ -504,16 +447,13 @@ function EarthScene() {
 /* ─── Export ────────────────────────────────────────────────── */
 export function EarthGlobe() {
   return (
-    <div
-      style={{ width: '100%', height: '100%', overflow: 'hidden' }}
-      aria-hidden="true"
-    >
+    <div style={{ width: '100%', height: '100%', overflow: 'hidden' }} aria-hidden="true">
       <Canvas
         camera={{ position: [0, 0, 5.8], fov: 55 }}
         gl={{
-          antialias:        true,
-          alpha:            true,
-          powerPreference:  'high-performance',
+          antialias: true,
+          alpha: true,
+          powerPreference: 'high-performance',
           logarithmicDepthBuffer: true,
         }}
         dpr={[1, 1.5]}
