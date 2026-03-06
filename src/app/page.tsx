@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import { HeroSection }           from '@/components/organisms/HeroSection'
 import { AboutSection }          from '@/components/organisms/AboutSection'
 import { NetworkTrackerWrapper } from '@/components/organisms/NetworkTrackerWrapper'

@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Wifi, Globe, Monitor, Clock, Shield, Activity, Cpu } from 'lucide-react'
 import { GlowCard } from '@/components/atoms/GlowCard'
-import { Badge } from '@/components/atoms/Badge'
 import { fadeUp } from '@/lib/utils/animations'
 
 interface GeoData {

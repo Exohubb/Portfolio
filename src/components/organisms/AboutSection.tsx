@@ -127,8 +127,7 @@ function SkillCard({
 
 /* ─── Main section ──────────────────────────────────────────── */
 export function AboutSection() {
-  const ref    = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, amount: 0.1 })
+    const ref = useRef<HTMLDivElement>(null)
 
   return (
     <section id="about" className="section-padding" aria-label="About section">

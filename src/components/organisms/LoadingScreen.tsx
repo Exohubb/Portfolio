@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-
+import { motion } from 'framer-motion'
 // Each step types out then resolves with a status line
 const STEPS = [
   {
