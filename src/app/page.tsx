@@ -4,9 +4,9 @@ import dynamic from 'next/dynamic'
 const AboutSection = dynamic(
   () => import('@/components/organisms/AboutSection').then(m => m.AboutSection), { ssr: true }
 )
-const NetworkTrackerSection = dynamic(
-  () => import('@/components/organisms/NetworkTrackerSection').then(m => m.NetworkTrackerSection), { ssr: false }
-)
+// ✅ ADD this instead — no dynamic needed, wrapper handles it
+import { NetworkTrackerWrapper } from '@/components/organisms/NetworkTrackerWrapper'
+
 const ProjectsGrid = dynamic(
   () => import('@/components/organisms/ProjectsGrid').then(m => m.ProjectsGrid), { ssr: true }
 )
