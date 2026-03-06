@@ -48,7 +48,7 @@ export function NetworkTrackerSection() {
   const [hopIdx,  setHopIdx]  = useState(0)
   const [latency] = useState(() => Math.floor(Math.random() * 35 + 10))
   const [hops]    = useState(() => Math.floor(Math.random() * 5 + 7))
-  const raf = useRef<ReturnType<typeof setInterval>>()
+  const raf = useRef<ReturnType<typeof setInterval> | undefined>(undefined)
 
   useEffect(() => {
     // Browser info
