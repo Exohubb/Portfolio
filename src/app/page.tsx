@@ -1,33 +1,23 @@
-import Link from 'next/link'
-import { Button } from '@/components/atoms/Button'
-import { Home } from 'lucide-react'
+import dynamic from 'next/dynamic'
 
-export default function NotFound() {
+const HeroSection       = dynamic(() => import('@/components/organisms/HeroSection').then(m => m.HeroSection),       { ssr: false })
+const AboutSection      = dynamic(() => import('@/components/organisms/AboutSection').then(m => m.AboutSection),     { ssr: false })
+const ProjectsSection   = dynamic(() => import('@/components/organisms/ProjectsSection').then(m => m.ProjectsSection), { ssr: false })
+const ExperienceSection = dynamic(() => import('@/components/organisms/ExperienceSection').then(m => m.ExperienceSection), { ssr: false })
+const CertsSection      = dynamic(() => import('@/components/organisms/CertsSection').then(m => m.CertsSection),     { ssr: false })
+const ContactSection    = dynamic(() => import('@/components/organisms/ContactSection').then(m => m.ContactSection), { ssr: false })
+const NetworkSection    = dynamic(() => import('@/components/organisms/NetworkSection').then(m => m.NetworkSection), { ssr: false })
+
+export default function HomePage() {
   return (
-    <div className="min-h-screen flex items-center justify-center hero-bg px-6">
-      <div className="hero-grid" aria-hidden="true" />
-      <div className="text-center relative z-10">
-        <h1 className="font-space text-[10rem] font-black leading-none gradient-text">
-          404
-        </h1>
-        <p className="text-2xl font-space font-bold text-text-primary mb-3">
-          Page Not Found
-        </p>
-        <p className="text-text-secondary mb-8 max-w-sm mx-auto">
-          Looks like this page doesn&apos;t exist. Even great systems have missing routes.
-        </p>
-        <Link href="/">
-          <Button
-            variant="primary"
-            size="lg"
-            icon={<Home className="w-5 h-5" />}
-            iconPosition="left"
-            glow
-          >
-            Back to Home
-          </Button>
-        </Link>
-      </div>
-    </div>
+    <>
+      <section id="home"><HeroSection /></section>
+      <section id="about"><AboutSection /></section>
+      <section id="network"><NetworkSection /></section>
+      <section id="projects"><ProjectsSection /></section>
+      <section id="experience"><ExperienceSection /></section>
+      <section id="certs"><CertsSection /></section>
+      <section id="contact"><ContactSection /></section>
+    </>
   )
 }
