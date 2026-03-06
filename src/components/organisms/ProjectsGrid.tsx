@@ -132,7 +132,8 @@ export function ProjectsGrid() {
               </div>
 
               {/* ── Scrollable content ── */}
-              <div className="overflow-y-auto flex-1 px-4 sm:px-8 py-4 sm:py-7">
+              <div className="overflow-y-auto flex-1 min-h-0 px-4 sm:px-8 py-4 sm:py-7">
+
 
                 {/* Close button */}
                 <button
