@@ -47,8 +47,7 @@
       "metrics": [
         "Real-time monitoring every 60s",
         "DNS + SSL + HTTP analysis",
-        "30-day uptime history",
-        "Zero cold starts"
+        "30-day uptime history"
       ],
       "stack": [
         "React 18",

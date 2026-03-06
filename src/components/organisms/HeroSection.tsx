@@ -24,7 +24,7 @@ const EarthGlobe = dynamic(
 const stats = [
   { value: 3,   suffix: '+', label: 'Years'   },
   { value: 6,   suffix: '',  label: 'Projects' },
-  { value: 2,   suffix: '',  label: 'Certs'    },
+  { value: 5,   suffix: '',  label: 'Certs'    },
   { value: 300, suffix: '+', label: 'Users'    },
 ]
 
