@@ -43,7 +43,7 @@
       "category": ["Full-Stack", "DevOps", "Real-Time"],
       "duration": "Mar 2026",
       "highlight": true,
-      "description": "Production-grade uptime monitoring platform that performs automated HTTP health checks across multiple targets with DNS resolution, SSL certificate expiry tracking, and intelligent failure classification. Features a real-time dashboard with 30-day uptime history bars, per-website incident lifecycle management, and response time analytics. Deployed serverlessly on Vercel with Neon PostgreSQL — zero cold starts, no infrastructure management. Automated check scheduling via external cron triggers with retry-based false-positive prevention (3-attempt exponential backoff before declaring downtime).",
+      "description": "Built a production-grade uptime monitoring platform with automated DNS, SSL, and HTTP health checks, failure detection, and real-time uptime analytics dashboard. Deployed serverlessly on Vercel with PostgreSQL.).",
       "metrics": [
         "Real-time monitoring every 60s",
         "DNS + SSL + HTTP analysis",
