@@ -40,6 +40,7 @@ export function ProjectCard({ project, index = 0, onClick }: ProjectCardProps) {
       whileInView="visible"
       viewport={{ once: true, amount: 0.1 }}
       transition={{ delay: index * 0.08 }}
+      className="h-full"
     >
       <div
         ref={cardRef}
