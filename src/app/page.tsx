@@ -1,39 +1,22 @@
-import { HeroSection } from '@/components/organisms/HeroSection'
 import dynamic from 'next/dynamic'
-
-const AboutSection = dynamic(
-  () => import('@/components/organisms/AboutSection').then(m => m.AboutSection), { ssr: true }
-)
-// ✅ ADD this instead — no dynamic needed, wrapper handles it
+import { HeroSection }           from '@/components/organisms/HeroSection'
+import { AboutSection }          from '@/components/organisms/AboutSection'
 import { NetworkTrackerWrapper } from '@/components/organisms/NetworkTrackerWrapper'
+import { ProjectsGrid }          from '@/components/organisms/ProjectsGrid'
+import { ExperienceSection }     from '@/components/organisms/ExperienceSection'
+import { CertificationsSection } from '@/components/organisms/CertificationsSection'
+import { ContactSection }        from '@/components/organisms/ContactSection'
 
-const ProjectsGrid = dynamic(
-  () => import('@/components/organisms/ProjectsGrid').then(m => m.ProjectsGrid), { ssr: true }
-)
-const ExperienceSection = dynamic(
-  () => import('@/components/organisms/ExperienceSection').then(m => m.ExperienceSection), { ssr: true }
-)
-const CertificationsSection = dynamic(
-  () => import('@/components/organisms/CertificationsSection').then(m => m.CertificationsSection), { ssr: true }
-)
-const ContactSection = dynamic(
-  () => import('@/components/organisms/ContactSection').then(m => m.ContactSection), { ssr: true }
-)
-const Footer = dynamic(
-  () => import('@/components/organisms/Footer').then(m => m.Footer), { ssr: true }
-)
-
-export default function HomePage() {
+export default function Home() {
   return (
-    <>
+    <main>
       <HeroSection />
       <AboutSection />
-      <NetworkTrackerSection />
+      <NetworkTrackerWrapper />   {/* ✅ wrapper — not NetworkTrackerSection */}
       <ProjectsGrid />
       <ExperienceSection />
       <CertificationsSection />
       <ContactSection />
-      <Footer />
-    </>
+    </main>
   )
 }
