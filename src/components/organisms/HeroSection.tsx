@@ -9,14 +9,17 @@ import { Badge } from '@/components/atoms/Badge'
 import { AnimatedCounter } from '@/components/atoms/AnimatedCounter'
 import resumeData from '@/lib/data/resume.json'
 
-const EarthGlobe = dynamic(() => import('@/components/three/EarthGlobe'), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center">
-      <div className="w-40 h-40 rounded-full border border-accent/20 animate-pulse bg-gradient-to-br from-accent/5 to-accent-2/5" />
-    </div>
-  ),
-})
+const EarthGlobe = dynamic(
+  () => import('@/components/three/EarthGlobe').then(m => m.EarthGlobe),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+      </div>
+    ),
+  }
+)
 
 const stats = [
   { value: 3,   suffix: '+', label: 'Years'   },
